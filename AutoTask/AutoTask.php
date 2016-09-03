@@ -10,18 +10,18 @@
   $temp_key = 0;
   do{
      $time = time();
-	 require 'config.php';
-	 $mem = new Memchache();
-	 $men->connect($Memchache_server, $Memchache_port);
-	 if($is_send){
-	    $get_time = $mem->get('time_data');
-	 }else{
-	    $get_time = $time + 86400;
-	 }
-	 
-	 if($get_time == $time){
-	   $mem->close();
-	 }else if ($temp_key == 0) {
+     require 'config.php';
+     $mem = new Memcache();
+     $men->connect($Memcache_server, $Memcache_port);
+     if($is_send){
+     	$get_time = $mem->get('time_data');
+     }else{
+     	$get_time = $time + 86400;
+     }
+     
+     if($get_time == $time){
+     	$mem->close();
+     }else if ($temp_key == 0) {
         $temp_key = 1;
         @file_get_contents('http://******/*****.php');
         $mem->set('tem_data', $time, MEMCACHE_COMPRESSED, $Memcache_date);
